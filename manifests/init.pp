@@ -52,6 +52,7 @@ class unbound (
   $rrset_cache_size             = $unbound::params::rrset_cache_size,
   $rrset_cache_slabs            = $unbound::params::rrset_cache_slabs,
   $service_name                 = $unbound::params::service_name,
+  $service_state                = $unbound::params::service_state,
   $so_rcvbuf                    = $unbound::params::so_rcvbuf,
   $statistics_cumulative        = $unbound::params::statistics_cumulative,
   $statistics_interval          = $unbound::params::statistics_interval,
@@ -67,7 +68,7 @@ class unbound (
 
   if $package_name {
     package { $package_name:
-      ensure   => installed,
+      ensure   => $package_ensure,
       provider => $package_provider,
     }
     Package[$package_name] -> Service[$service_name]
@@ -75,10 +76,19 @@ class unbound (
     Package[$package_name] -> File[$anchor_file]
   }
 
+  case $service_state {
+    'stopped':
+                { $service_ensure = 'stopped'
+                  $service_enable = false }
+    'running',default:
+                { $service_ensure = 'running'
+                  $service_enable = true }
+  }
+
   service { $service_name:
-    ensure    => running,
+    ensure    => $service_ensure,
     name      => $service_name,
-    enable    => true,
+    enable    => $service_enable,
     hasstatus => false,
   }
 

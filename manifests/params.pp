@@ -6,73 +6,87 @@ class unbound::params {
 
   case $::operatingsystem {
     'ubuntu', 'debian': {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $anchor_file  = "${confdir}/root.anchor"
-      $owner        = 'unbound'
-      $fetch_client = 'wget -O'
+      $confdir        = '/etc/unbound'
+      $logdir         = '/var/log'
+      $service_name   = 'unbound'
+      $package_name   = 'unbound'
+      $service_state  = 'running'
+      $service_ensure = 'present'
+      $anchor_file    = "${confdir}/root.anchor"
+      $owner          = 'unbound'
+      $fetch_client   = 'wget -O'
     }
     'redhat', 'centos', 'scientific': {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $anchor_file  = "${confdir}/root.anchor"
-      $owner        = 'unbound'
-      $fetch_client = 'wget -O'
+      $confdir        = '/etc/unbound'
+      $logdir         = '/var/log'
+      $service_name   = 'unbound'
+      $package_name   = 'unbound'
+      $service_state  = 'running'
+      $service_ensure = 'present'
+      $anchor_file    = "${confdir}/root.anchor"
+      $owner          = 'unbound'
+      $fetch_client   = 'wget -O'
       }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
       $logdir           = '/opt/local/var/log/unbound'
       $service_name     = 'org.macports.unbound'
+      $service_state    = 'running'
+      $service_ensure   = 'present'
       $package_name     = 'unbound'
       $package_provider = 'macports'
-      $anchor_file  = "${confdir}/root.anchor"
+      $anchor_file      = "${confdir}/root.anchor"
       $owner            = 'unbound'
       $fetch_client     = 'curl -o'
     }
     'freebsd': {
-      $confdir      = '/usr/local/etc/unbound'
-      $logdir       = '/var/log/unbound'
-      $service_name = 'unbound'
-      $package_name = 'dns/unbound'
-      $anchor_file  = "${confdir}/root.anchor"
-      $owner        = 'unbound'
-      $fetch_client = 'fetch -o'
+      $confdir        = '/usr/local/etc/unbound'
+      $logdir         = '/var/log/unbound'
+      $service_name   = 'unbound'
+      $package_name   = 'dns/unbound'
+      $service_state  = 'running'
+      $service_ensure = 'present'
+      $anchor_file    = "${confdir}/root.anchor"
+      $owner          = 'unbound'
+      $fetch_client   = 'fetch -o'
     }
     'openbsd': {
-      $confdir      = '/var/unbound/etc'
-      $logdir       = '/var/log/unbound'
-      $service_name = 'unbound'
+      $confdir        = '/var/unbound/etc'
+      $logdir         = '/var/log/unbound'
+      $service_name   = 'unbound'
       if versioncmp($::operatingsystemrelease, '5.6') < 0 {
         $package_name = 'unbound'
       } else {
         $package_name = undef
       }
-      $anchor_file  = "${confdir}/root.anchor"
-      $owner        = '_unbound'
-      $fetch_client = 'ftp -o'
+      $service_state  = 'running'
+      $service_ensure = 'present'
+      $anchor_file    = "${confdir}/root.anchor"
+      $owner          = '_unbound'
+      $fetch_client   = 'ftp -o'
     }
     'sles', 'opensuse', 'suse': {
       $confdir        = '/etc/unbound'
       $logdir         = '/var/log'
       $service_name   = 'unbound'
       $package_name   = 'unbound'
+      $service_state  = 'running'
+      $service_ensure = 'present'
       $anchor_file    = "/var/lib/unbound/root.key"
       $owner          = 'unbound'
       $group          = 'unbound'
       $pidfile        = '/var/run/unbound/unbound.pid'
     }
     default: {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $anchor_file  = "${confdir}/root.anchor"
-      $owner        = 'unbound'
-      $fetch_client = 'wget -O'
+      $confdir        = '/etc/unbound'
+      $logdir         = '/var/log'
+      $service_name   = 'unbound'
+      $package_name   = 'unbound'
+      $service_state  = 'running'
+      $service_ensure = 'present'
+      $anchor_file    = "${confdir}/root.anchor"
+      $owner          = 'unbound'
+      $fetch_client   = 'wget -O'
     }
   }
 
